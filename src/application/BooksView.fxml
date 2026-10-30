@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<!-- Conteneur principal pour la vue des livres, définissant l'alignement, l'espacement et le padding -->
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BooksViewController" alignment="TOP_CENTER" spacing="20" style="-fx-padding: 20;" prefWidth="1200" prefHeight="800">
+    
+    <!-- Label de titre pour la vue -->
+    <Label text="Gestion des Livres" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 0 0 10 0;"/>
+    
+    <!-- ScrollPane pour permettre le défilement si le contenu déborde -->
+    <ScrollPane fitToWidth="true" fitToHeight="true" prefWidth="1200" prefHeight="800">
+        <VBox spacing="10" alignment="CENTER" stylesheets="@../application/style.css" styleClass="background-vbox">
+            
+            <!-- Section pour ajouter un nouveau livre -->
+            <VBox alignment="CENTER" spacing="5" style="-fx-padding: 10; -fx-background-color: #ffffff; -fx-border-style: solid inside; -fx-border-width: 1; -fx-border-color: #cccccc; -fx-width: 100%; -fx-max-width: 300px;">
+                <Label text="Ajouter un Nouveau Livre :" style="-fx-font-size: 16px;"/>
+                <TextField fx:id="inputField" promptText="Entrez l'ISBN du livre" prefWidth="300" prefHeight="30"/>
+                <Button text="Ajouter Livre" onAction="#handleSubmitButtonAction" styleClass="button"/>
+                <Label fx:id="responseLabel" style="-fx-text-fill: green;"/>
+            </VBox>
+
+            <!-- Section pour rechercher un livre par titre et auteur -->
+            <VBox alignment="CENTER" spacing="5" style="-fx-padding: 10; -fx-background-color: #ffffff; -fx-border-style: solid inside; -fx-border-width: 1; -fx-border-color: #cccccc; -fx-width: 100%; -fx-max-width: 300px;">
+                <Label text="Rechercher un Livre par Titre et Auteur" style="-fx-font-size: 16px;"/>
+                <TextField fx:id="titleField" promptText="Entrez le titre" prefWidth="300" prefHeight="30"/>
+                <TextField fx:id="authorField" promptText="Entrez l'auteur" prefWidth="300" prefHeight="30"/>
+                <TextField fx:id="isbnField" promptText="Entrez l'ISBN" prefWidth="300" prefHeight="30"/>
+                <Button text="Rechercher" onAction="#handleSearchAction" styleClass="button"/>
+                <Label fx:id="searchResponseLabel" style="-fx-text-fill: green;"/>
+            </VBox>
+
+            <!-- Section pour afficher les résultats de la recherche -->
+            <VBox alignment="CENTER" spacing="10" style="-fx-padding: 10;" prefWidth="1200">
+                <HBox alignment="CENTER">
+                    <AnchorPane>
+                        <TableView fx:id="booksTable" prefWidth="1200" prefHeight="525">
+                            <columns>
+                                <TableColumn text="Titre" fx:id="titleColumn" prefWidth="250">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="title"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn text="Auteur" fx:id="authorColumn" prefWidth="150">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="author"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn text="ISBN" fx:id="isbnColumn" prefWidth="150">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="isbn"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn text="Édition" fx:id="editionColumn" prefWidth="150">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="edition"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn text="Date" fx:id="dateColumn" prefWidth="150">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="publicationDate"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn text="Collection" fx:id="collectionColumn" prefWidth="200">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="collection"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn text="Disponibilité" fx:id="availabilityColumn" prefWidth="150">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="availability"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                            </columns>
+                        </TableView>
+                        <AnchorPane.bottomAnchor>10</AnchorPane.bottomAnchor>
+                        <AnchorPane.leftAnchor>10</AnchorPane.leftAnchor>
+                        <AnchorPane.rightAnchor>10</AnchorPane.rightAnchor>
+                        <AnchorPane.topAnchor>10</AnchorPane.topAnchor>
+                    </AnchorPane>
+                </HBox>
+            </VBox>
+
+            <!-- Section pour afficher les livres les plus empruntés -->
+            <VBox alignment="CENTER" spacing="10" style="-fx-padding: 10;" prefWidth="710">
+                <Label text="Livres les Plus Empruntés :" style="-fx-font-size: 16px;"/>
+                <HBox alignment="CENTER">
+                    <AnchorPane>
+                        <TableView fx:id="topBooksTable" prefWidth="710" prefHeight="115">
+                            <columns>
+                                <TableColumn text="Titre" fx:id="topTitleColumn" prefWidth="250">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="title"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn text="Auteur" fx:id="topAuthorColumn" prefWidth="150">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="author"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn text="ISBN" fx:id="topIsbnColumn" prefWidth="150">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="isbn"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn text="Emprunts" fx:id="topLoansColumn" prefWidth="150">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="loansCount"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                            </columns>
+                        </TableView>
+                        <AnchorPane.bottomAnchor>10</AnchorPane.bottomAnchor>
+                        <AnchorPane.leftAnchor>10</AnchorPane.leftAnchor>
+                        <AnchorPane.rightAnchor>10</AnchorPane.rightAnchor>
+                        <AnchorPane.topAnchor>10</AnchorPane.topAnchor>
+                    </AnchorPane>
+                </HBox>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</VBox>

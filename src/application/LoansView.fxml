@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<!-- Conteneur principal pour la vue des prêts, définissant l'alignement, l'espacement et le padding -->
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoansViewController" alignment="TOP_CENTER" spacing="20" style="-fx-padding: 20;" prefWidth="1200" prefHeight="800">
+    
+    <!-- Label de titre pour la vue -->
+    <Label text="Gestion des Prêts" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 0 0 10 0;"/>
+    
+    <!-- ScrollPane pour permettre le défilement si le contenu déborde -->
+    <ScrollPane fitToWidth="true" fitToHeight="true" prefWidth="1200" prefHeight="800">
+        <VBox spacing="10" alignment="CENTER" prefWidth="1100" prefHeight="750" styleClass="background-vbox">
+            
+            <!-- Section pour effectuer un prêt -->
+            <TitledPane text="Effectuer un Prêt" expanded="true" styleClass="titled-pane" style="-fx-max-width: 600px; -fx-min-width: 600px; -fx-text-fill: white;">
+                <VBox alignment="CENTER" spacing="10" style="-fx-padding: 10;">
+                    <HBox alignment="CENTER" spacing="10">
+                        <Label text="Sélectionner un Utilisateur:"/>
+                        <ComboBox fx:id="userComboBox" minWidth="300" prefHeight="30"/>
+                    </HBox>
+                    <HBox alignment="CENTER" spacing="10">
+                        <Label text="Sélectionner un Livre:"/>
+                        <ComboBox fx:id="bookComboBox" minWidth="300" prefHeight="30"/>
+                    </HBox>
+                    <Button text="Prêter" onAction="#handleLoanAction" styleClass="button"/>
+                    <Label fx:id="loanResponseLabel" style="-fx-text-fill: green;"/>
+                </VBox>
+            </TitledPane>
+
+            <!-- Section pour retourner un livre -->
+            <TitledPane text="Retourner un Livre" expanded="false" styleClass="titled-pane" style="-fx-max-width: 600px; -fx-min-width: 600px; -fx-text-fill: white;">
+                <VBox alignment="CENTER" spacing="10" style="-fx-padding: 10;">
+                    <HBox alignment="CENTER" spacing="10">
+                        <Label text="Sélectionner l'Utilisateur:"/>
+                        <ComboBox fx:id="returnUserComboBox" minWidth="300" prefHeight="30"/>
+                    </HBox>
+                    <HBox alignment="CENTER" spacing="10">
+                        <Label text="Sélectionner le Livre:"/>
+                        <ComboBox fx:id="returnBookComboBox" minWidth="300" prefHeight="30"/>
+                    </HBox>
+                    <Button text="Retourner" onAction="#handleReturnAction" styleClass="button"/>
+                    <Label fx:id="returnResponseLabel" style="-fx-text-fill: green;"/>
+                </VBox>
+            </TitledPane>
+
+            <!-- Section pour afficher les prêts en retard -->
+            <TitledPane text="Prêts en Retard" expanded="false" styleClass="titled-pane" style="-fx-max-width: 1050px; -fx-min-width: 1050px; -fx-text-fill: white;">
+                <VBox alignment="CENTER" spacing="10" style="-fx-padding: 10;">
+                    <Button text="Afficher les Prêts en Retard" onAction="#handleShowLateLoans" styleClass="button"/>
+                    <ListView fx:id="lateLoansListView" prefHeight="150" style="-fx-font-family: 'Monospaced'; -fx-font-size: 12px;"/>
+                </VBox>
+            </TitledPane>
+            
+            <!-- Section pour afficher le nombre de livres en retard -->
+            <VBox spacing="5" alignment="CENTER">
+                <Label fx:id="overdueBooksCountLabel" text="Calcul en cours..." style="-fx-text-fill: red; -fx-font-size: 18px; -fx-font-weight: bold; -fx-background-color: yellow; -fx-padding: 5;"/>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</VBox>
